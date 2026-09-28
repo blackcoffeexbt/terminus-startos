@@ -52,7 +52,7 @@
                           put: routes.path(:design, id: template.id),
                           trigger: "click, keyup[ctrlKey&&key=='s'] from:body",
                           select_oob: "#form",
-                          disabled_elt: "this"
+                          disable: "this"
                         ] %>
 
         <%= link_to "Cancel", routes.path(:designs), class: "bit-button-decline" %>
