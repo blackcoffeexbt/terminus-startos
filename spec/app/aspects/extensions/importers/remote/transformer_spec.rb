@@ -129,7 +129,7 @@ RSpec.describe Terminus::Aspects::Extensions::Importers::Remote::Transformer do
       allow(extractor).to receive(:call).and_return Success(archive)
 
       expect(transformer.call(1)).to be_failure(
-        "Unsupported kind: bogus. Use: polling or static."
+        "Unsupported kind: bogus. Use: polling, static, or webhook."
       )
     end
   end

@@ -15,7 +15,7 @@ module Terminus
 
               using Refinements::Array
 
-              KINDS = {"polling" => "poll", "static" => "static"}.freeze
+              KINDS = {"polling" => "poll", "static" => "static", "webhook" => "webhook"}.freeze
 
               def initialize kinds: KINDS
                 @kinds = kinds
