@@ -47,7 +47,6 @@
                      get: routes.path(:extensions_gallery, page: recipe.meta.next_page, query:),
                      select: ".bit-card",
                      trigger: "revealed",
-                     swap: "this",
                      push_url: true
                    ] do %>
           Loading...
