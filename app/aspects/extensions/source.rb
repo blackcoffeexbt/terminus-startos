@@ -16,6 +16,16 @@ module Terminus
         extend Dry::Monads[:result]
         extend Functionable
 
+        using Refines::Icalendar::Calendar
+
+        def from_calendar content, parser: Icalendar::Parser
+          Success StringIO.new(content)
+                          .then { parser.new(it, true).parse }
+                          .map(&:to_h)
+        rescue StandardError => error
+          Failure error.message
+        end
+
         def from_csv content
           Success ::CSV.parse(String(content), headers: true).each.map(&:to_h)
         rescue ::CSV::MalformedCSVError => error

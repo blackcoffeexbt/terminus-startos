@@ -5,6 +5,44 @@ require "hanami_helper"
 RSpec.describe Terminus::Aspects::Extensions::Source do
   subject(:parser) { described_class }
 
+  describe ".from_calendar" do
+    it "answers empty array when nil" do
+      expect(parser.from_calendar(nil)).to be_success([])
+    end
+
+    it "answers empty array when blank" do
+      expect(parser.from_calendar("")).to be_success([])
+    end
+
+    it "answers array" do
+      content = <<~CONTENT
+        BEGIN:VCALENDAR
+        PRODID:-//Test//Test//EN
+        VERSION:2.0
+        BEGIN:VEVENT
+        UID:cc1fe76d-eb99-42cf-a73f-eb619b529341
+        DTSTAMP:20260928T200306Z
+        DTSTART:20260930T183000Z
+        END:VEVENT
+        END:VCALENDAR
+      CONTENT
+
+      expect(parser.from_calendar(content)).to be_success(
+        JSON.parse(SPEC_ROOT.join("support/fixtures/calendars.json").read, symbolize_names: true)
+      )
+    end
+
+    it "answers failure with malformed content" do
+      content = <<~CONTENT
+        BEGIN:VCALENDAR
+        bogus
+        END:VCALENDAR
+      CONTENT
+
+      expect(parser.from_calendar(content)).to be_failure("Invalid iCalendar input line: bogus")
+    end
+  end
+
   describe ".from_csv" do
     it "answers empty array when nil" do
       expect(parser.from_csv(nil)).to be_success([])
