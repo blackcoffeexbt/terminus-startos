@@ -25,6 +25,7 @@ gem "hanami-view", "~> 3.0"
 gem "htmx", "~> 4.0"
 gem "http", "~> 6.0"
 gem "i18n", "~> 1.14"
+gem "icalendar", "~> 2.12"
 gem "initable", "~> 1.0"
 gem "inspectable", "~> 1.0"
 gem "json", "~> 2.21" # TODO: Remove once Sequel supports JSON 3.0.0.
