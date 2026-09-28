@@ -91,7 +91,8 @@
                    items: [
                      %w[Image image],
                      %w[Poll poll],
-                     %w[Static static]
+                     %w[Static static],
+                     %w[Webhook webhook]
                    ],
                    name: "extension[kind]",
                    model: "kind" %>
@@ -106,6 +107,14 @@
 
         <p class="help" x-show="kind === 'static'">
           Render local data. Use the static body field, below, to supply JSON data.
+        </p>
+
+        <p class="help" x-show="kind === 'webhook'">
+          Render <a href="https://docs.trmnl.com/go/private-plugins/webhooks">TRMNL Webhooks</a> -- which are only API requests -- so you can dynamically update your extension.
+
+          <% unless request.path.end_with?("new") || request.post? %>
+            Use <code><%= extension.api_patch_uri %></code> to make API PATCH requests. See the <%= link_to "Extensions API", "https://github.com/usetrmnl/terminus/blob/main/doc/api.adoc#extensions" %> for details.
+          <% end %>
         </p>
       </div>
 
