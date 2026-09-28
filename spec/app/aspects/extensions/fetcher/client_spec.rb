@@ -18,6 +18,43 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher::Client do
       ]
     end
 
+    context "with calendar" do
+      before do
+        body = <<~CONTENT
+          BEGIN:VCALENDAR
+          PRODID:-//Test//Test//EN
+          VERSION:2.0
+          BEGIN:VEVENT
+          UID:cc1fe76d-eb99-42cf-a73f-eb619b529341
+          DTSTAMP:20260928T200306Z
+          DTSTART:20260930T183000Z
+          END:VEVENT
+          END:VCALENDAR
+        CONTENT
+
+        response = HTTP::Response.new headers: {content_type: "text/calendar"},
+                                      body:,
+                                      status: 200,
+                                      version: 1.0
+
+        allow(http).to receive(:get).and_return response
+      end
+
+      it "answers success" do
+        result = client.call request.with(headers: {content_type: "text/calendar"})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetcher::Response[
+            data: JSON.parse(
+              SPEC_ROOT.join("support/fixtures/calendars.json").read,
+              symbolize_names: true
+            ),
+            errors: {}
+          ]
+        )
+      end
+    end
+
     context "with JSON" do
       before do
         response = HTTP::Response.new headers: {content_type: "application/json"},

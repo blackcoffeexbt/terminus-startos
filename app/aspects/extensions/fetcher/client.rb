@@ -45,6 +45,7 @@ module Terminus
             case type
               when %r(application/([[:alnum:]][\w!#&\-^$]*\+)?json) then source.from_json body
               when %r(image/.+) then source.from_image body
+              when "text/calendar" then source.from_calendar body
               when "text/csv" then source.from_csv body
               when "text/plain" then source.from_text body
               when "text/xml", "application/xml", "application/rss+xml", "application/atom+xml"
