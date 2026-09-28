@@ -101,6 +101,7 @@ detectors:
       - Terminus::Aspects::Croner#call
       - Terminus::Aspects::Extensions::Exchanges::RequestBuilder#render
       - Terminus::Aspects::Extensions::Fetcher::Client#parse
+      - Terminus::Aspects::Extensions::Generator#process
       - Terminus::Aspects::Extensions::Importers::Remote::Transformer#process
       - Terminus::Aspects::Extensions::Parser#from_json
       - Terminus::Aspects::Firmware::Downloader#get

@@ -10,6 +10,7 @@ module Terminus
       class Generator
         include Deps[
           "aspects.extensions.contextualizer",
+          "aspects.extensions.generators.basic",
           "aspects.extensions.generators.image",
           "aspects.extensions.generators.poll",
           "aspects.extensions.generators.static"
@@ -31,6 +32,7 @@ module Terminus
             when "image" then image.call extension, context:
             when "poll" then poll.call extension, context:
             when "static" then static.call extension, context:
+            when "webhook" then basic.call extension, context:
             else Failure "Unsupported extension kind: #{kind}."
           end
         end

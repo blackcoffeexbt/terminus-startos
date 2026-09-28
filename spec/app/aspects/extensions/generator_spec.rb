@@ -63,6 +63,19 @@ RSpec.describe Terminus::Aspects::Extensions::Generator, :db do
       end
     end
 
+    context "with webhook kind" do
+      subject(:generator) { described_class.new basic: }
+
+      let(:basic) { instance_spy Terminus::Aspects::Extensions::Generators::Basic }
+
+      it "delegates to generator" do
+        allow(extension).to receive(:kind).and_return("webhook")
+        generator.call extension, model_id: model.id
+
+        expect(basic).to have_received(:call).with(extension, context:)
+      end
+    end
+
     context "with unknown kind" do
       it "answers failure" do
         allow(extension).to receive(:kind).and_return("bogus")
