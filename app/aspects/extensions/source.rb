@@ -16,29 +16,29 @@ module Terminus
         extend Dry::Monads[:result]
         extend Functionable
 
-        def from_csv body
-          Success ::CSV.parse(String(body), headers: true).each.map(&:to_h)
+        def from_csv content
+          Success ::CSV.parse(String(content), headers: true).each.map(&:to_h)
         rescue ::CSV::MalformedCSVError => error
           Failure error.message
         end
 
-        def from_image(body) = Success body
+        def from_image(content) = Success content
 
-        def from_json body
-          content = String(body).empty? ? Core::EMPTY_ARRAY : JSON(body)
+        def from_json content
+          content = String(content).empty? ? Core::EMPTY_ARRAY : JSON(content)
           Success content
         rescue ::JSON::ParserError => error
           Failure "#{error.message.capitalize}."
         end
 
-        def from_text body
-          Success String(body).split
+        def from_text content
+          Success String(content).split
         rescue ArgumentError => error
           Failure "#{error.message.capitalize}."
         end
 
-        def from_xml body, nori: Nori.new(parser: :rexml)
-          content = nori.parse String(body)
+        def from_xml content, nori: Nori.new(parser: :rexml)
+          content = nori.parse String(content)
           Success content.empty? ? Core::EMPTY_ARRAY : content
         rescue REXML::ParseException => error
           Failure error.message
