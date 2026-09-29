@@ -432,6 +432,37 @@ RSpec.describe Terminus::Aspects::Extensions::Fetcher::Client do
       end
     end
 
+    context "with special header (upcase)" do
+      before do
+        response = HTTP::Response.new headers: {content_type: "text/html"},
+                                      body: "test",
+                                      status: 200,
+                                      version: 1.0
+
+        allow(http).to receive(:get).and_return response
+      end
+
+      it "answers success when upcased" do
+        result = client.call request.with(headers: {"Accept" => "text/plain"})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetcher::Response[
+            data: ["test"]
+          ]
+        )
+      end
+
+      it "answers success when downcased" do
+        result = client.call request.with(headers: {"accept" => "text/plain"})
+
+        expect(result).to be_success(
+          Terminus::Aspects::Extensions::Fetcher::Response[
+            data: ["test"]
+          ]
+        )
+      end
+    end
+
     context "with unknown MIME type" do
       before do
         response = HTTP::Response.new headers: {content_type: "text/html"},

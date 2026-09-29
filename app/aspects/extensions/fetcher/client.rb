@@ -10,7 +10,7 @@ module Terminus
         # A specialized client for processing HTTP requests.
         class Client
           include Deps[:http]
-          include Initable[source: Extensions::Source, special_header: "Accept", response: Response]
+          include Initable[source: Extensions::Source, special_header: "accept", response: Response]
           include Dry::Monads[:result]
 
           def call request
@@ -37,7 +37,7 @@ module Terminus
           end
 
           def maybe_alter_mime_type headers, response
-            type = headers && headers[special_header]
+            type = headers && headers.transform_keys(&:downcase)[special_header]
             [type || response.mime_type, response.body]
           end
 
