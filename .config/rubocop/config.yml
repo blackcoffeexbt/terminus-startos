@@ -17,6 +17,7 @@ Metrics/AbcSize:
     - app/aspects/screens/converters/color.rb
     - app/aspects/screens/converters/monochrome.rb
     - app/aspects/screens/shoter.rb
+    - lib/terminus/refines/icalendar/event.rb
 Metrics/BlockLength:
   Exclude:
     - config/db/migrate/*
@@ -28,13 +29,17 @@ Metrics/ClassLength:
 Metrics/CollectionLiteralLength:
   Exclude:
     - app/serializers/device.rb
+    - lib/terminus/refines/icalendar/event.rb
     - spec/app/contracts/devices/patch_spec.rb
     - spec/app/schemas/devices/upsert_spec.rb
     - spec/app/serializers/device_spec.rb
+    - spec/lib/terminus/refines/icalendar/event_spec.rb
     - spec/requests/devices_spec.rb
 Metrics/CyclomaticComplexity:
   AllowedMethods:
     - wifi_percentage
+  Exclude:
+    - lib/terminus/refines/icalendar/event.rb
 Metrics/MethodLength:
   AllowedMethods:
     - cloneable_attributes
@@ -47,13 +52,19 @@ Metrics/MethodLength:
     - app/aspects/screens/shoter.rb
     - app/views/helpers.rb
     - config/initializers/universal_logger_patch.rb
+    - lib/terminus/refines/icalendar/event.rb
 Metrics/ParameterLists:
   Exclude:
     - app/aspects/extensions/fetcher/request.rb
     - app/aspects/screens/placeholder.rb
+Metrics/PerceivedComplexity:
+  Exclude:
+    - lib/terminus/refines/icalendar/event.rb
 Naming/VariableNumber:
   AllowedPatterns:
     - md5
+  Exclude:
+    - lib/terminus/refines/icalendar/event.rb
 RSpec/ExampleLength:
   Exclude:
     - "spec/features/**/*"
