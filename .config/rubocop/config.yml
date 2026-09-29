@@ -17,6 +17,7 @@ Metrics/AbcSize:
     - app/aspects/screens/converters/color.rb
     - app/aspects/screens/converters/monochrome.rb
     - app/aspects/screens/shoter.rb
+    - lib/terminus/refines/icalendar/calendar.rb
     - lib/terminus/refines/icalendar/event.rb
 Metrics/BlockLength:
   Exclude:
@@ -52,6 +53,7 @@ Metrics/MethodLength:
     - app/aspects/screens/shoter.rb
     - app/views/helpers.rb
     - config/initializers/universal_logger_patch.rb
+    - lib/terminus/refines/icalendar/calendar.rb
     - lib/terminus/refines/icalendar/event.rb
 Metrics/ParameterLists:
   Exclude:
@@ -74,6 +76,9 @@ RSpec/SpecFilePathFormat:
 Style/IpAddresses:
   Exclude:
     - spec/**/*
+Style/SymbolProc:
+  Exclude:
+    - lib/terminus/refines/icalendar/calendar.rb
 ThreadSafety/EnvMutation:
   Exclude:
     - scripts/docker/entrypoint
