@@ -13,27 +13,27 @@ module Terminus
           include Initable[source: Extensions::Source, special_header: "Accept", response: Response]
           include Dry::Monads[:result]
 
-          def call input
-            process(input).fmap { maybe_alter_mime_type input.headers, it }
-                          .fmap { |mime_type, body| parse mime_type, body }
-                          .bind { build_success input, it }
+          def call request
+            resolve(request).fmap { maybe_alter_mime_type request.headers, it }
+                            .fmap { |mime_type, body| parse mime_type, body }
+                            .bind { build_success request, it }
           end
 
           private
 
-          def process input
-            process_request input
-          rescue HTTP::RequestError then build_failure input, "Unable to make request"
-          rescue HTTP::ConnectionError then build_failure input, "Unable to connect"
-          rescue HTTP::TimeoutError then build_failure input, "Connection timed out"
-          rescue OpenSSL::SSL::SSLError then build_failure input, "Unable to secure connection"
+          def resolve request
+            process request
+          rescue HTTP::RequestError then build_failure request, "Unable to make request"
+          rescue HTTP::ConnectionError then build_failure request, "Unable to connect"
+          rescue HTTP::TimeoutError then build_failure request, "Connection timed out"
+          rescue OpenSSL::SSL::SSLError then build_failure request, "Unable to secure connection"
           end
 
-          def process_request input
-            http.headers(input.headers)
+          def process request
+            http.headers(request.headers)
                 .follow
-                .public_send(input.verb, input.uri, **input.http_options)
-                .then { it.status.success? ? Success(it) : build_detailed_failure(input, it) }
+                .public_send(request.verb, request.uri, **request.http_options)
+                .then { it.status.success? ? Success(it) : build_detailed_failure(request, it) }
           end
 
           def maybe_alter_mime_type headers, response
@@ -54,22 +54,22 @@ module Terminus
           end
 
           # :reek:FeatureEnvy
-          def build_success input, result
+          def build_success request, result
             if result.success?
               Success response[data: result.success]
             else
-              build_failure input, result.failure
+              build_failure request, result.failure
             end
           end
 
-          def build_failure input, body
-            Failure response[errors: {uri: input.uri, code: nil, type: nil, body:}]
+          def build_failure request, body
+            Failure response[errors: {uri: request.uri, code: nil, type: nil, body:}]
           end
 
           # :reek:FeatureEnvy
-          def build_detailed_failure input, error
+          def build_detailed_failure request, error
             Failure response[
-              errors: {uri: input.uri, code: error.code, type: error.mime_type, body: error.body}
+              errors: {uri: request.uri, code: error.code, type: error.mime_type, body: error.body}
             ]
           end
         end
