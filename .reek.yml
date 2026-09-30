@@ -116,8 +116,12 @@ detectors:
       - Terminus::Structs::Device#wifi_percentage
       - Terminus::Views::Parts::DeviceLog#level_class
       - UniversalLoggerPatch#_log_structured
+  UncommunicativeMethodName:
+    exclude:
+      - "::Icalendar::Timezone#rfc_3339"
   UtilityFunction:
     exclude:
+      - "::Icalendar::Timezone#rfc_3339"
       - Terminus::Aspects::Croner
       - Terminus::Aspects::Errors::Problem#duplicate
       - Terminus::Aspects::Errors::Problem#foreign_key
