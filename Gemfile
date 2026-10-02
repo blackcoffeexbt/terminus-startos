@@ -28,7 +28,6 @@ gem "i18n", "~> 1.14"
 gem "icalendar", "~> 2.12"
 gem "initable", "~> 1.0"
 gem "inspectable", "~> 1.0"
-gem "json", "~> 2.21" # TODO: Remove once Sequel supports JSON 3.0.0.
 gem "jwt", "~> 3.1"
 gem "marcel", "~> 2.1"
 gem "mini_magick", "~> 5.2"
@@ -88,7 +87,7 @@ group :test do
 end
 
 group :tools do
-  gem "amazing_print", "~> 2.0"
+  gem "amazing_print", "~> 3.0"
   gem "debug", "~> 1.11"
   gem "irb-kit", "~> 2.0"
   gem "repl_type_completor", "~> 0.1"
