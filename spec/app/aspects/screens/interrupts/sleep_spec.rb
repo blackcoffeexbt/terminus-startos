@@ -3,7 +3,7 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Aspects::Screens::Interrupts::Sleep, :db do
-  subject(:sleeper) { described_class.new }
+  subject(:interrupter) { described_class.new }
 
   describe "#call" do
     let(:device) { Factory[:device, model_id: model.id] }
@@ -19,7 +19,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Sleep, :db do
         kind: "sleep"
       ]
 
-      expect(sleeper.call(device).success).to have_attributes(
+      expect(interrupter.call(device).success).to have_attributes(
         id: screen.id,
         label: "Sleep #{device.id}",
         name: "sleep_#{device.id}"
@@ -27,7 +27,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Sleep, :db do
     end
 
     it "answers new screen when not found" do
-      expect(sleeper.call(device).success).to have_attributes(
+      expect(interrupter.call(device).success).to have_attributes(
         label: "Sleep #{device.id}",
         name: "sleep_#{device.id}",
         image_attributes: hash_including(

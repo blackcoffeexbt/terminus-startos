@@ -3,7 +3,7 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Aspects::Screens::Interrupts::Error, :db do
-  subject(:gaffer) { described_class.new }
+  subject(:interrupter) { described_class.new }
 
   describe "#call" do
     let(:device) { Factory[:device, model_id: model.id] }
@@ -11,7 +11,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Error, :db do
     let(:message) { "Danger!" }
 
     it "answers new screen when not found" do
-      expect(gaffer.call(device, message).success).to have_attributes(
+      expect(interrupter.call(device, message).success).to have_attributes(
         label: "Error #{device.id}",
         name: "error_#{device.id}",
         image_attributes: hash_including(
@@ -33,7 +33,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Error, :db do
         name: "error_#{device.id}"
       ]
 
-      expect(gaffer.call(device, message).success).to have_attributes(
+      expect(interrupter.call(device, message).success).to have_attributes(
         label: "Error #{device.id}",
         name: "error_#{device.id}",
         image_attributes: hash_including(
