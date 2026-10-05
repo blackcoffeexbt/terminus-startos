@@ -12,8 +12,7 @@ module Terminus
           include Dry::Monads[:result]
 
           def call device
-            device_repository.update device.id, command: "next_screen"
-
+            device_repository.update device.id, command: "screen_forward"
             Success faux.with(name: "screen_wiper.png")
           end
         end

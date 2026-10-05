@@ -14,7 +14,7 @@ RSpec.describe Terminus::Aspects::Screens::Interrupts::Wipe, :db do
 
     it "answers reverts to next screen command afterwards" do
       interrupter.call device
-      expect(Terminus::Repositories::Device.new.find(device.id).command).to eq("next_screen")
+      expect(Terminus::Repositories::Device.new.find(device.id).command).to eq("screen_forward")
     end
   end
 end
