@@ -82,5 +82,12 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
 
       expect(positioner).to have_received(:call).with(device, direction: :forward)
     end
+
+    it "processes device command when using EXT0 trigger" do
+      device = Factory.structs[:device, command: "screen_first"]
+      interrupter.call device, trigger: "EXT0"
+
+      expect(positioner).to have_received(:call).with(device, direction: :first)
+    end
   end
 end

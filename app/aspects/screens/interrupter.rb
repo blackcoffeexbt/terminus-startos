@@ -13,10 +13,10 @@ module Terminus
           "aspects.screens.interrupts.sleep",
           "aspects.screens.interrupts.wipe"
         ]
-        include Initable[default_trigger: "button"]
+        include Initable[default_triggers: %w[button EXT0]]
 
         def call device, trigger: nil
-          trigger == default_trigger ? interrupt(device) : sleep_or_forward(device)
+          default_triggers.include?(trigger) ? interrupt(device) : sleep_or_forward(device)
         end
 
         private
