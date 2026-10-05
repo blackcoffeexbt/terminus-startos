@@ -16,6 +16,7 @@ module Terminus
         :content,
         :mime_type,
         :bit_depth,
+        :palette_name,
         :colors,
         :color_codes,
         :grays,
@@ -53,6 +54,8 @@ module Terminus
         end
 
         def log_attributes = to_h.merge content: "<redacted>"
+
+        def lossless? = palette_name.match?(/12bit|24bit/)
 
         def rotatable? = !rotation.zero?
 

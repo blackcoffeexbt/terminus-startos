@@ -132,6 +132,7 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
     it "answers taggable log attributes with redacted content" do
       expect(mold.log_attributes).to eq(
         bit_depth: 4,
+        palette_name: nil,
         color_codes: nil,
         colors: nil,
         content: "<redacted>",
@@ -153,6 +154,20 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
         template_id: 4,
         width: 800
       )
+    end
+  end
+
+  describe "#lossless?" do
+    it "answers true when palette name includes 12 bit" do
+      expect(mold.with(palette_name: "color-12bit").lossless?).to be(true)
+    end
+
+    it "answers true when palette name includes 24 bit" do
+      expect(mold.with(palette_name: "color-24bit").lossless?).to be(true)
+    end
+
+    it "answers false when palette name doesn't include bits" do
+      expect(mold.with(palette_name: "color-6a").lossless?).to be(false)
     end
   end
 
