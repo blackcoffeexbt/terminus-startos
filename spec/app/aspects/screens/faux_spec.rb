@@ -37,6 +37,12 @@ RSpec.describe Terminus::Aspects::Screens::Faux do
     end
   end
 
+  describe "#image_name_with_timestamp" do
+    it "answers name without timestamp" do
+      expect(faux.image_name_with_timestamp).to eq("faux")
+    end
+  end
+
   describe "#popover_attributes" do
     it "answers attributes" do
       expect(faux.popover_attributes).to eq(

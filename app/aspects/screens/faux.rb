@@ -28,7 +28,9 @@ module Terminus
           super(**)
         end
 
-        def image_uri = assets[uri].path
+        def image_uri(**) = assets[uri].path
+
+        def image_name_with_timestamp = name
 
         def popover_attributes = {id:, label:, uri: image_uri, width:, height:}
       end
