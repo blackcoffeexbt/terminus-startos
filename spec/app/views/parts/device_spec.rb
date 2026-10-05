@@ -20,7 +20,7 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
       let(:device) { Factory.structs[:device] }
 
       it "answers placeholder when device has no playlist" do
-        expect(part.current_screen).to eq(Terminus::Aspects::Screens::Placeholder[id: device.id])
+        expect(part.current_screen).to eq(Terminus::Aspects::Screens::Faux[id: device.id])
       end
     end
   end

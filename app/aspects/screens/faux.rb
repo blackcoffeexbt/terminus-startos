@@ -5,15 +5,15 @@ require "wholeable"
 module Terminus
   module Aspects
     module Screens
-      # A fallback (null object) for times when you need a screen that behaves like one but isn't.
-      class Placeholder
+      # A screen imitation when you need a screen that behaves like one but isn't.
+      class Faux
         include Wholeable[:id, :label, :name, :uri, :width, :height]
         include Deps[:assets]
 
         def initialize(
           id: 0,
-          label: "Placeholder",
-          name: "placeholder",
+          label: "Faux",
+          name: "faux",
           uri: "setup.svg",
           width: 800,
           height: 480,

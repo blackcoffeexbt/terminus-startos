@@ -93,7 +93,7 @@ detectors:
       - Authentication::Middleware
   TooManyInstanceVariables:
     exclude:
-      - Terminus::Aspects::Screens::Placeholder
+      - Terminus::Aspects::Screens::Faux
   TooManyStatements:
     exclude:
       - Terminus::Action#handle_rodauth_redirect
@@ -109,7 +109,7 @@ detectors:
       - Terminus::Aspects::Screens::Converters::Color#convert
       - Terminus::Aspects::Screens::Converters::Monochrome#convert
       - Terminus::Aspects::Screens::Interrupter#interrupt
-      - Terminus::Aspects::Screens::Placeholder#initialize
+      - Terminus::Aspects::Screens::Faux#initialize
       - Terminus::Aspects::Screens::Shoter#save
       - Terminus::Providers::Sidekiq#load_schedule
       - Terminus::Structs::Device#battery_voltage_to_percent

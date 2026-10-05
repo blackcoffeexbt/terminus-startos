@@ -7,7 +7,7 @@ module Terminus
     module Parts
       # The device presenter.
       class Device < Hanami::View::Part
-        include Deps["aspects.screens.fetcher", "aspects.screens.placeholder"]
+        include Deps["aspects.screens.fetcher", "aspects.screens.faux"]
 
         def battery_measurement_label minimum_voltage: 4.2
           return "Charging" if charging || battery_voltage >= minimum_voltage
@@ -32,7 +32,7 @@ module Terminus
 
         def current_screen
           fetcher.call(value).either -> screen { screen },
-                                     proc { placeholder.with id: id }
+                                     proc { faux.with id: id }
         end
       end
     end

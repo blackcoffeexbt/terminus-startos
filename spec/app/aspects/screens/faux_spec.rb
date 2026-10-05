@@ -2,15 +2,15 @@
 
 require "hanami_helper"
 
-RSpec.describe Terminus::Aspects::Screens::Placeholder do
-  subject(:placeholder) { described_class.new }
+RSpec.describe Terminus::Aspects::Screens::Faux do
+  subject(:faux) { described_class.new }
 
   describe "#initialize" do
     it "answers default attributes" do
-      expect(placeholder).to have_attributes(
+      expect(faux).to have_attributes(
         id: 0,
-        label: "Placeholder",
-        name: "placeholder",
+        label: "Faux",
+        name: "faux",
         image_uri: Hanami.app[:assets]["setup.svg"].path,
         width: 800,
         height: 480
@@ -33,15 +33,15 @@ RSpec.describe Terminus::Aspects::Screens::Placeholder do
 
   describe "#image_uri" do
     it "answers asset path" do
-      expect(placeholder.image_uri).to eq(Hanami.app[:assets]["setup.svg"].path)
+      expect(faux.image_uri).to eq(Hanami.app[:assets]["setup.svg"].path)
     end
   end
 
   describe "#popover_attributes" do
     it "answers attributes" do
-      expect(placeholder.popover_attributes).to eq(
+      expect(faux.popover_attributes).to eq(
         id: 0,
-        label: "Placeholder",
+        label: "Faux",
         uri: Hanami.app[:assets]["setup.svg"].path,
         width: 800,
         height: 480

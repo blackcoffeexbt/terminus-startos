@@ -59,7 +59,7 @@ Metrics/MethodLength:
 Metrics/ParameterLists:
   Exclude:
     - app/aspects/extensions/fetcher/request.rb
-    - app/aspects/screens/placeholder.rb
+    - app/aspects/screens/faux.rb
 Metrics/PerceivedComplexity:
   Exclude:
     - lib/terminus/refines/icalendar/event.rb
