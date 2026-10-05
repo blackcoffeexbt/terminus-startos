@@ -48,6 +48,16 @@ RSpec.describe Terminus::Aspects::Screens::Interrupter do
       expect(positioner).to have_received(:call).with(device, direction: :last)
     end
 
+    it "processes device screen wipe command" do
+      device = Factory.structs[:device, command: "screen_wipe"]
+      wipe = instance_spy Terminus::Aspects::Screens::Interrupts::Wipe
+      interrupter = described_class.new(wipe:)
+
+      interrupter.call device, trigger: "button"
+
+      expect(wipe).to have_received(:call)
+    end
+
     it "sleeps when device is asleep" do
       device = Factory.structs[:device]
       sleep = instance_spy Terminus::Aspects::Screens::Interrupts::Sleep

@@ -10,7 +10,8 @@ module Terminus
         include Deps[
           "aspects.screens.positioner",
           "aspects.screens.interrupts.identify",
-          "aspects.screens.interrupts.sleep"
+          "aspects.screens.interrupts.sleep",
+          "aspects.screens.interrupts.wipe"
         ]
         include Initable[default_trigger: "button"]
 
@@ -22,10 +23,11 @@ module Terminus
 
         def interrupt device
           case device.command
-            when "identify" then identify.call(device)
+            when "identify" then identify.call device
             when "screen_first" then positioner.call(device, direction: :first)
             when "screen_backward" then positioner.call(device, direction: :backward)
             when "screen_last" then positioner.call(device, direction: :last)
+            when "screen_wipe" then wipe.call device
             else sleep_or_forward device
           end
         end
