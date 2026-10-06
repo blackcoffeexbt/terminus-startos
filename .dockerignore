@@ -66,3 +66,6 @@ Procfile.dev
 
 # XDG
 /.config
+
+# StartOS packaging build outputs
+/packaging/
