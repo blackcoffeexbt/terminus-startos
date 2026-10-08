@@ -183,7 +183,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
       subcontainer: web,
       exec: {
         command: sdk.useEntrypoint(),
-        env: { ...env, APP_SETUP: 'false' },
+        env: { ...env, APP_SETUP: 'false', STARTOS_RUBY_UTF8: 'true' },
       },
       ready: {
         display: 'Web Interface',
@@ -207,7 +207,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
           '-r',
           './config/sidekiq.rb',
         ]),
-        env: { ...env, APP_SETUP: 'false' },
+        env: { ...env, APP_SETUP: 'false', STARTOS_RUBY_UTF8: 'true' },
       },
       ready: {
         display: 'Background Worker',

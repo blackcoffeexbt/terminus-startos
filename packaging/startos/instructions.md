@@ -13,6 +13,8 @@ Back up with StartOS before updates. Backups include accounts, devices, screens,
 
 Firmware, model, and font synchronization and some extensions require Internet access. Custom certificate installation through Compose's CERTIFICATE_URLS is not exposed in this package.
 
+After an update, verify that an extension builds a screen from the Web UI and again through its configured schedule. Check `/sidekiq` while signed in. Web and worker use UTF-8 for both Ruby default encodings. Attached shells do not inherit the running service environment; diagnostics must use the service environment without printing its credentials. Keep your existing Set Device Server URL override when updating.
+
 ## Documentation
 
 - [Device setup](https://github.com/usetrmnl/terminus/blob/main/doc/devices.adoc)

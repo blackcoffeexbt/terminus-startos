@@ -51,7 +51,7 @@ If Docker reports that its exporter is unsupported, confirm that the build comma
 
 This package builds the Terminus source in this checkout, with PostgreSQL 18.6 and Valkey 9.1 sidecars. Web and Sidekiq run as uid 1000; PostgreSQL and Valkey bind only to loopback. The public HTTP interface listens on port 2300. There are no external StartOS package dependencies.
 
-The package version is 0.76.0:0, based on this checkout (0.76.0 plus subsequent commits). The Docker build uses local source, not a floating application image. Review and advance the version graph when updating Terminus; PostgreSQL major upgrades need a migration plan.
+The package version is 0.76.0:1, based on this checkout (0.76.0 plus subsequent commits). The Docker build uses local source, not a floating application image. Review and advance the version graph when updating Terminus; PostgreSQL major upgrades need a migration plan.
 
 ## Storage and startup
 
@@ -64,7 +64,7 @@ The package version is 0.76.0:0, based on this checkout (0.76.0 plus subsequent 
 | uploads | Shared rendered screens and uploaded files |
 | assets | Shared compiled assets, regenerated at startup, excluded from backups |
 
-Startup waits for database/cache readiness, fixes application volume ownership, compiles assets, migrates the schema, starts Puma, then starts Sidekiq. Failures in asset compilation or migration prevent the app from starting. Web readiness uses /up; worker readiness checks the Sidekiq process title through Ruby and /proc.
+Startup waits for database/cache readiness, fixes application volume ownership, compiles assets, migrates the schema, starts Puma, then starts Sidekiq. Failures in asset compilation or migration prevent the app from starting. Web and worker launches enable UTF-8 for both Ruby default external and internal encodings through the image entrypoint, setting `-EUTF-8:UTF-8` in inherited `RUBYOPT` while preserving unrelated options (existing encoding switches are replaced). Web readiness uses /up; worker readiness checks the Sidekiq process title through Ruby and /proc.
 
 ## Configuration and networking
 

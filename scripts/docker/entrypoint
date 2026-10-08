@@ -3,6 +3,24 @@
 
 $VERBOSE = true
 
+if ENV["STARTOS_RUBY_UTF8"] == "true"
+  # Ruby rejects duplicate encoding options. Preserve all unrelated options.
+  options = ENV.fetch("RUBYOPT", "").split
+  skip_encoding = false
+  options = options.each_with_object([]) do |option, kept|
+    if skip_encoding
+      skip_encoding = false
+    elsif ["-E", "--encoding"].include?(option)
+      skip_encoding = true
+    elsif !option.start_with?("-E", "--encoding=")
+      kept << option
+    end
+  end
+  ENV["RUBYOPT"] = (options << "-EUTF-8:UTF-8").join(" ")
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
+end
+
 jemalloc_path = Dir["/usr/lib/*/libjemalloc.so.2"]
 ENV["LD_PRELOAD"] = jemalloc_path.first unless ENV.key?("LD_PRELOAD") || jemalloc_path.empty?
 
